@@ -31,8 +31,7 @@ import java.util.UUID;
 
 
 public class MainActivity extends ActionBarActivity {
-    //
-    public boolean change=true;
+    
     public static final int MESSAGE_READ = 10;
     private Button btnON,btnOFF,btnSearch,btnVisible;
     public static BluetoothAdapter btAdapter;
