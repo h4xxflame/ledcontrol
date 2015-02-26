@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ import java.util.UUID;
 public class MainActivity extends ActionBarActivity {
 
     public static final int MESSAGE_READ = 10;
-    private Button btnON,btnOFF,btnSearch,btnVisible;
+    private Button btnON,btnOFF,btnSearch,btnVisible,btnSend;
     public static BluetoothAdapter btAdapter;
     private BluetoothDevice btDevice=null;
     private Set<BluetoothDevice>pairedDevices;
@@ -68,6 +69,7 @@ public class MainActivity extends ActionBarActivity {
         btnOFF=(Button)findViewById(R.id.btnOFF);
         btnVisible=(Button)findViewById(R.id.btnVisible);
         btnSearch=(Button)findViewById(R.id.btnSearch);
+        btnSend=(Button)findViewById(R.id.btnSend);
 
         lvPaired.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,11 +105,13 @@ public class MainActivity extends ActionBarActivity {
 
     public void updateText(String input)
     {
-        ((TextView)findViewById(R.id.tvOutput)).setText(input);
-        if(myConnectedThread!=null && input.endsWith(" ... confirmed!")!=true )
+        ((TextView)findViewById(R.id.tvLog)).setText(input);
+        if(myConnectedThread!=null)
         {
             myConnectedThread.write((input+" ... confirmed!").getBytes());
+            confirmed = true;
         }
+
     }
 
     public void manageConnectedSocket(BluetoothSocket socket)
@@ -210,6 +214,16 @@ public class MainActivity extends ActionBarActivity {
     {
         isServer=false;
     }
+
+    public void btnSend(View view){
+        if(findViewById(R.id.tvWrite).toString() != null){
+            updateText(findViewById(R.id.tvWrite).toString());
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Empty",Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

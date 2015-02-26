@@ -40,6 +40,7 @@ public class ConnectedThread extends Thread {
                 bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI Activity.
                 MainActivity.mHandler.obtainMessage(MainActivity.myInstance.MESSAGE_READ, bytes, -1, new String(buffer)).sendToTarget();
+                mmInStream.reset();
             } catch (IOException e) {
                 break;
             }
